@@ -68,18 +68,26 @@ from sqlalchemy import DateTime, Column...这些什么的略过。值得一提�
 而很巧妙的是，实现这些包装的背后逻辑是，定义一个模块全局变量session，用来保存*create_session*函数新建的session，然后交给同模块中的其它函数运用。
 *------------------create_session的讲解------------------*
 1. 指定数据库，创建引擎
-` engine = create_engine(sqluri) `
+```
+    engine = create_engine(sqluri)
+```
 其中，*sqluri*用内存作数据库为 *sqlite:///:memory:*;ubuntu中指定一个文件为数据库可以这么写：*sqlite:///test.db*，即在与session.py同目录下创建一个数据库test.db。
-` metadata.create_all(engine) `
+```
+    metadata.create_all(engine)
+```
 且看**metadata**的来历:
 ```
     from atomisator.db.mappers import Base
     metadata = Base.metadata
 ```
 上文创建映射时，创建了一个对象**Base**，即Entry、Link和Tag继承的父类，就是此处之**Base**；原来此物是数据表和session的桥梁，哈哈。
-` Session = sessionmaker(bind=engine, autoflush=True, autocommit=False) `
+```
+    Session = sessionmaker(bind=engine, autoflush=True, autocommit=False)
+```
 此句就创建了一个session类——是的，只是session类而已。
-` session = Session() `
+```
+    session = Session()
+```
 将session保存在一个模块全局变量session，方便共享给模块内其它函数。
 
 ##  4.操作数据库
