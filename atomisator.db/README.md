@@ -71,7 +71,7 @@ from sqlalchemy import DateTime, Column...这些什么的略过。值得一提�
 ```
     engine = create_engine(sqluri)
 ```
-其中，*sqluri*用内存作数据库为 *sqlite:///:memory:*;ubuntu中指定一个文件为数据库可以这么写：*sqlite:///test.db*，即在与session.py同目录下创建一个数据库test.db。
+其中，*sqluri*用内存作数据库为 *sqlite:///:memory:*；ubuntu中指定一个文件为数据库可以这么写：*sqlite:///test.db*，即在与session.py同目录下创建一个数据库test.db。
 ```
     metadata.create_all(engine)
 ```
@@ -95,9 +95,9 @@ from sqlalchemy import DateTime, Column...这些什么的略过。值得一提�
 这个模块可以说是整个**db**最核心最被书的作者重视的部分了——从其命名可知：core.py。
 这个模块也是定义几个函数：
 - 新建一个entry，*create_entry*；
-- 删除entry,可以一次删除一个或多个，entry,*purge_entries*；
-- 获取entry,可以一次获取一个或多个，entry,*get_entries*；
-至此，各个模块的介绍工作完毕——其实，我们也可以按照上面的思路，先快速*起草*整个db用到的各个对象，然后紧接着写测试文档的。写了测试文档后，然后再来接着完善各个对象的代码。这就是我目前理解的**测试驱动开发(TDD)**。  
+- 删除entry,可以一次删除一个或多个entry，*purge_entries*；
+- 获取entry,可以一次获取一个或多个entry，*get_entries*；  
+至此，各个模块的介绍工作完毕——其实，我们也可以按照上面的思路，先快速**起草**整个db用到的各个对象，然后紧接着写测试文档的。写了测试文档后，然后再来接着完善各个对象的代码。这就是我目前理解的**测试驱动开发(TDD)**。  
 *--------------------------create_entry的讲解---------------------------*  
 
 ##  5.测试
