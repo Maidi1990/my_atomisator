@@ -74,7 +74,8 @@ from sqlalchemy import DateTime, Column...这些什么的略过。值得一提�
 ```
     engine = create_engine(sqluri)
 ```
-其中，*sqluri*用内存作数据库为 *sqlite:///:memory:*；ubuntu中指定一个文件为数据库可以这么写：*sqlite:///test.db*，即在与session.py同目录下创建一个数据库test.db。
+其中，*sqluri*用内存作数据库可以这么写： *sqlite:///:memory:*；  
+ubuntu中，指定一个文件为数据库可以这么写：*sqlite:///test.db* ——即在与session.py同目录下创建一个数据库test.db。  
 ```
     metadata.create_all(engine)
 ```
@@ -83,33 +84,37 @@ from sqlalchemy import DateTime, Column...这些什么的略过。值得一提�
     from atomisator.db.mappers import Base
     metadata = Base.metadata
 ```
-上文创建映射时，创建了一个对象**Base**，即Entry、Link和Tag继承的父类，就是此处之**Base**；原来此物是数据表和session的桥梁，哈哈。
+上文创建映射时，同时创建了一个全局对象**Base**，还记得不？Entry、Link和Tag继承的父类，亦此处之**Base**也。原来此物是数据表和session的桥梁，哈哈。
 ```
     Session = sessionmaker(bind=engine, autoflush=True, autocommit=False)
 ```
-此句就创建了一个session类——是的，只是session类而已。
+此句就创建了一个session类——是的，只是session类，看清楚，*Session*首字母大写哦。
 ```
+    global session
+    ...
     session = Session()
 ```
-将session保存在一个模块全局变量session，方便共享给模块内其它函数。  
+将*Session实例*保存在一个模块全局变量session（此又是首字母小写），方便共享给模块内其它函数。  
+
 ##  4.操作数据库
 
-这个模块可以说是整个**db**最核心最被书的作者重视的部分了——从其命名可知：core.py。
-这个模块也是定义几个函数：
+这个模块可以说是整个**db**最核心最被书的作者重视的部分了——从其命名可知：core.py。  
+这个模块也是定义几个函数：  
 - 新建一个entry，*create_entry*；
 - 删除entry,可以一次删除一个或多个entry，*purge_entries*；
 - 获取entry,可以一次获取一个或多个entry，*get_entries*；  
 
-至此，各个模块的介绍工作完毕——其实，我们也可以按照上面的思路，先快速**起草**整个db用到的各个对象，然后紧接着写测试文档的。写了测试文档后，然后再来接着完善各个对象的代码。这就是我目前理解的**测试驱动开发(TDD)**。  
+至此，各个模块的介绍工作完毕！  
+——其实，我们也可以按照上面的思路，先快速**起草**整个db用到的各个对象，然后紧接着写测试文档的。写了测试文档后，然后再来接着完善各个对象的代码。这就是我目前理解的**测试驱动开发(TDD)**。  
 
 *--------------------------get_entries的讲解---------------------------*  
-core.py中几个函数明白其实都是运用session.py中的全局变量session操作数据库，明白了*get_entries*，即可明了其它。  
+core.py中几个函数都是运用session.py中的全局变量session操作数据库的，明白了*get_entries*，即可明了其它。  
 先看*get_entries*的原型:  
 ```
     get_entries(size=None, session=default_session, **kw)
 ```
-这三个关键字参数，最重要的是session，这也是**整个core.py的函数**所共有的参数，其默认值为*default_session*；
-再查看
+这三个关键字参数，最重要的是session，这也是**整个core.py的函数**所共有的参数，其默认值为*default_session*；  
+再查看  
 ```
     from atomisator.db import session as default_session
 ```
@@ -124,4 +129,5 @@ core.py中几个函数明白其实都是运用session.py中的全局变量sessio
 
 ##  5.测试
 
+这里我们只了解下doctest就好。  
 具体见 [atomisator/db/docs/README.txt](https://github.com/Maidi1990/my_atomisator/blob/db/atomisator.db/atomisator/db/docs/READMED.txt)。
