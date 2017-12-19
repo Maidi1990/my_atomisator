@@ -51,8 +51,8 @@ from sqlalchemy import DateTime, Column...这些什么的略过。值得一提�
         ...
 ```
 - 应注意到Link和Tag类的*atomisator_entry_id*属性，其中的*Foreignkey('atomisator_entry.id')*中的**atomisator_entry**来自Entry类的*__tablename__*；
-- Entry类中的links的*back_populates='entry'*则来自Link&Tag类的entry属性；
-    *------------------------总结----------------------*
+- Entry类中的links的*back_populates='entry'*则来自Link&Tag类的entry属性；  
+*------------------------总结----------------------*  
 - 为了实现外链接，Entry增加了两个属性*links & tags*;
 - 为了实现外链接，Tag增加了两个属性*atomisator_entry_id & entry*;
 - 为了实现外链接，Link增加了两个属性*atomisator_entry_id & entry*;
