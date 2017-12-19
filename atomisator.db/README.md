@@ -123,4 +123,4 @@ core.py中几个函数明白其实都是运用session.py中的全局变量sessio
 
 ##  5.测试
 
-具体见 *atomisator/db/docs/README.txt*。
+具体见 [atomisator/db/docs/README.txt](https://github.com/Maidi1990/my_atomisator/blob/db/atomisator.db/atomisator/db/docs/READMED.txt)。
