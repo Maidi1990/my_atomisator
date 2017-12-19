@@ -65,7 +65,8 @@ from sqlalchemy import DateTime, Column...这些什么的略过。值得一提�
 - 添加，用*save*；
 - 提交，用*commit*；
 - 查询，用*query*；
-- 执行，用*execute*；
+- 执行，用*execute*；  
+  
 而很巧妙的是，实现这些包装的背后逻辑是，定义一个模块全局变量session，用来保存*create_session*函数新建的session，然后交给同模块中的其它函数运用。  
   
 *------------------create_session的讲解------------------*  
